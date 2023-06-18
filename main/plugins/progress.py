@@ -4,7 +4,7 @@ import time
 import json
 from main.plugins.helpers import TimeFormatter, humanbytes
 
-#------
+# ------
 FINISHED_PROGRESS_STR = "▰"
 UN_FINISHED_PROGRESS_STR = "▱"
 DOWNLOAD_LOCATION = "/app"
@@ -38,13 +38,14 @@ async def progress_for_pyrogram(
 
         progress = "**[{0}{1}]**\n".format(
             ''.join(
-                    FINISHED_PROGRESS_STR
-                    for _ in range(math.floor(percentage / 14))
+                FINISHED_PROGRESS_STR
+                for _ in range(math.floor(percentage / 14))
             ),
             ''.join(
-                    UN_FINISHED_PROGRESS_STR
-                    for _ in range(14 - math.floor(percentage / 14))
+                UN_FINISHED_PROGRESS_STR
+                for _ in range(14 - math.floor(percentage / 14))
             )
+        )
 
         tmp = progress + "├ 𝙎𝙞𝙯𝙚: {0} / {1}\n├ 𝙎𝙥𝙚𝙚𝙙: {2}/s\n├ 𝙀𝙏𝘼: {3}\n╰─⌈ 𝘽𝙤𝙩 𝙢𝙖𝙙𝙚 𝙗𝙮 𝙄𝙉𝙑𝙄𝙓 ⌋──╯".format(
             humanbytes(current),
@@ -57,10 +58,8 @@ async def progress_for_pyrogram(
             if message.text != text or message.caption != text:
                 if not message.photo:
                     await message.edit_text(text=f"{ud_type}\n {tmp}")
-
                 else:
                     await message.edit_caption(caption=f"{ud_type}\n {tmp}")
         except:
             pass
-
 
