@@ -5,8 +5,8 @@ import json
 from main.plugins.helpers import TimeFormatter, humanbytes
 
 # ------
-FINISHED_PROGRESS_STR = "▰"
-UN_FINISHED_PROGRESS_STR = "▱"
+FINISHED_PROGRESS_STR = "█"
+UN_FINISHED_PROGRESS_STR = "░"
 DOWNLOAD_LOCATION = "/app"
 
 
@@ -36,30 +36,24 @@ async def progress_for_pyrogram(
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
 
-        progress = "**[{0}{1}]**\n".format(
-            ''.join(
-                FINISHED_PROGRESS_STR
-                for _ in range(math.floor(percentage / 14))
-            ),
-            ''.join(
-                UN_FINISHED_PROGRESS_STR
-                for _ in range(14 - math.floor(percentage / 14))
-            )
+        filled_blocks = "█" * math.floor(percentage / 10)
+        empty_blocks = "░" * (10 - math.floor(percentage / 10))
+
+        progress = f"**[{filled_blocks}{empty_blocks}]**\n"
+
+        stats = (
+            f"├ 𝙎𝙞𝙯𝙚: {humanbytes(current)} / {humanbytes(total)}\n"
+            f"├ 𝙎𝙥𝙚𝙚𝙙: {humanbytes(speed)}/s\n"
+            f"├ 𝙀𝙏𝘼: {estimated_total_time if estimated_total_time != '' else '0 s'}\n"
+            "╰─⌈ 𝘽𝙤𝙩 𝙢𝙖𝙙𝙚 𝙗𝙮 𝙄𝙉𝙑𝙄𝙓 ⌋──╯"
         )
 
-        tmp = progress + "├ 𝙎𝙞𝙯𝙚: {0} / {1}\n├ 𝙎𝙥𝙚𝙚𝙙: {2}/s\n├ 𝙀𝙏𝘼: {3}\n╰─⌈ 𝘽𝙤𝙩 𝙢𝙖𝙙𝙚 𝙗𝙮 𝙄𝙉𝙑𝙄𝙓 ⌋──╯".format(
-            humanbytes(current),
-            humanbytes(total),
-            humanbytes(speed),
-            estimated_total_time if estimated_total_time != '' else "0 s"
-        )
+        text = f"{ud_type}\n{progress}{stats}"
         try:
-            text = f"{ud_type}\n {tmp}"
             if message.text != text or message.caption != text:
                 if not message.photo:
-                    await message.edit_text(text=f"{ud_type}\n {tmp}")
+                    await message.edit_text(text=text)
                 else:
-                    await message.edit_caption(caption=f"{ud_type}\n {tmp}")
+                    await message.edit_caption(caption=text)
         except:
             pass
-
