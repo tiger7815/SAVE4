@@ -55,5 +55,5 @@ async def progress_for_pyrogram(
                     await message.edit_text(text=text)
                 else:
                     await message.edit_caption(caption=text)
-        except:
+        except Exception:
             pass
