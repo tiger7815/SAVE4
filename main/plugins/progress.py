@@ -45,7 +45,7 @@ async def progress_for_pyrogram(
             f"├ 𝙎𝙞𝙯𝙚: {humanbytes(current)} / {humanbytes(total)}\n"
             f"├ 𝙎𝙥𝙚𝙚𝙙: {humanbytes(speed)}/s\n"
             f"├ 𝙀𝙏𝘼: {estimated_total_time if estimated_total_time != '' else '0 s'}\n"
-            "╰─⌈ 𝘽𝙤𝙩 𝙢𝙖𝙙𝙚 𝙗𝙮 𝙄𝙉𝙑𝙄𝙓 ⌋──╯"
+            "╰─⌈ 𝘽𝙤𝙩 𝙢𝙖𝙙𝙚 𝙗𝙮 TIGER ⌋──╯"
         )
 
         text = f"{ud_type}\n{progress}{stats}"
