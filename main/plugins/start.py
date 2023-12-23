@@ -38,7 +38,7 @@ async def remt(event):
 
 @Invix.on(events.NewMessage(incoming=True, pattern=f"{S}"))
 async def start(event):
-    text = "👋 Hi, I am 'Save Restricted Content' bot.\n\n✅ Send me the Link of any message of Restricted Channels to Clone it here. For private channel's messages, send the Invite Link first.\n\n👨🏻‍💻 Owner: Johnny Sins.\n**support:** Mia Khalifa"
+    text = "👋 Hi, I am 'Save Restricted Content' bot.\n\n✅ Send me the Link of any message of Restricted Channels to Clone it here. For private channel's messages, send the Invite Link first.\n\n👨🏻‍💻 Owner: TIGER.\n**support:** TEAM EAGLE"
     await event.reply(text, buttons=[
         [Button.inline("SET THUMB.", data="set"),
          Button.inline("REM THUMB.", data="rem")]
